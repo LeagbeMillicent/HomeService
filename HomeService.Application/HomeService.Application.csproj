@@ -20,4 +20,16 @@
     <ProjectReference Include="..\HomeService.Domain\HomeService.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Commands\Categories\" />
+    <Folder Include="Commands\WorkUnits\" />
+    <Folder Include="Commands\Requests\" />
+    <Folder Include="Commands\Workers\" />
+    <Folder Include="Repository\Customer\" />
+    <Folder Include="Repository\Categories\" />
+    <Folder Include="Repository\WorkUnits\" />
+    <Folder Include="Repository\Request\" />
+    <Folder Include="Repository\Workers\" />
+  </ItemGroup>
+
 </Project>
