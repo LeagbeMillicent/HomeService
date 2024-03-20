@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HomeService.Application.DTOs.Categories
+namespace HomeService.Domain
 {
-    public class ReadCategoriesByIdDto
+    public class Category
     {
         public int CategoryId { get; set; }
+        public string? CategoryType { get; set; }
+        public string? CategoryName { get; set; }
     }
 }

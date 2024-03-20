@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="6.2.2" />
     <PackageReference Include="MediatR" Version="6.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.25" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.25" />
@@ -21,15 +22,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\Categories\" />
+    <Folder Include="Commands\Customers\" />
     <Folder Include="Commands\WorkUnits\" />
     <Folder Include="Commands\Requests\" />
     <Folder Include="Commands\Workers\" />
-    <Folder Include="Repository\Customer\" />
-    <Folder Include="Repository\Categories\" />
-    <Folder Include="Repository\WorkUnits\" />
-    <Folder Include="Repository\Request\" />
-    <Folder Include="Repository\Workers\" />
   </ItemGroup>
 
 </Project>
