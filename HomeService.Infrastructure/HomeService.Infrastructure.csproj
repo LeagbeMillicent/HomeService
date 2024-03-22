@@ -22,11 +22,4 @@
     <ProjectReference Include="..\HomeService.Domain\HomeService.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Persistence\Repository\Customer\" />
-    <Folder Include="Persistence\Repository\WorkUnits\" />
-    <Folder Include="Persistence\Repository\Requests\" />
-    <Folder Include="Persistence\Repository\Workers\" />
-  </ItemGroup>
-
 </Project>

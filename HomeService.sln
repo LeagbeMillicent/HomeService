@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeService", "HomeService\HomeService.csproj", "{E97FC25C-C16C-49E4-A5E9-A36D806DCBD1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeService.API", "HomeService\HomeService.API.csproj", "{E97FC25C-C16C-49E4-A5E9-A36D806DCBD1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeService.Domain", "HomeService.Domain\HomeService.Domain.csproj", "{24BDB911-48B2-4E94-9D86-0D0C94DDA8D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeService.Domain", "HomeService.Domain\HomeService.Domain.csproj", "{24BDB911-48B2-4E94-9D86-0D0C94DDA8D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeService.Application", "HomeService.Application\HomeService.Application.csproj", "{115E4FD8-1898-4449-9EA8-7D56EF693C0F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeService.Application", "HomeService.Application\HomeService.Application.csproj", "{115E4FD8-1898-4449-9EA8-7D56EF693C0F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeService.Infrastructure", "HomeService.Infrastructure\HomeService.Infrastructure.csproj", "{28CBFBE9-9576-4C2D-A42E-886A3E4A096F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeService.Infrastructure", "HomeService.Infrastructure\HomeService.Infrastructure.csproj", "{28CBFBE9-9576-4C2D-A42E-886A3E4A096F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

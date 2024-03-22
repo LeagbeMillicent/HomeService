@@ -6,24 +6,24 @@ using MediatR;
 
 namespace HomeService.Application.Commands.Categories
 {
-    public class CreateCategoryCommand : IRequest<Category>
+    public class CreateServicesCommand : IRequest<Services>
     {
         public AddCategoriesDto Category { get; set; }
     }
 
-    public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryCommand, Category>
+    public class CreateCategoryCommandHandler : IRequestHandler<CreateServicesCommand, Services>
     {
-        private readonly IGenericRepository<Category> _repo;
+        private readonly IGenericRepository<Services> _repo;
         private readonly IMapper _mapper;
-        public CreateCategoryCommandHandler(IGenericRepository<Category> repo, IMapper mapper)
+        public CreateCategoryCommandHandler(IGenericRepository<Services> repo, IMapper mapper)
         {
             _repo = repo;
             _mapper = mapper;
         }
 
-        public async Task<Category> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
+        public async Task<Services> Handle(CreateServicesCommand request, CancellationToken cancellationToken)
         {
-            var map = _mapper.Map<Category>(request.Category);
+            var map = _mapper.Map<Services>(request.Category);
 
             var result = await _repo.Create(map);
             return result;

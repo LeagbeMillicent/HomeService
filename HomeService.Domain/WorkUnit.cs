@@ -11,6 +11,6 @@ namespace HomeService.Domain
         public int WorkUnitsId { get; set; }
         public string? WorkUnitsName { get; set;}
         public string? WorkUnitsDescription { get; set;}
-        public int WorkUnitDuration { get; set; }
+        //public int WorkUnitDuration { get; set; }
     }
 }

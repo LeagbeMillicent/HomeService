@@ -28,6 +28,12 @@ namespace HomeService.Infrastructure.Persistence.Repository
             return result.Entity;
         }
 
+        public async Task DeleteAsync(T Id)
+        {
+            _dbContext.Set<T>().Remove(Id);
+            await _dbContext.SaveChangesAsync();
+        }
+
         public async Task<List<T>> GetAll(FormattableString query)
         {
             var response = await _dbContext.Set<T>().FromSqlInterpolated(query).ToListAsync();
@@ -38,6 +44,14 @@ namespace HomeService.Infrastructure.Persistence.Repository
         {
             var response =  await _dbContext.Set<T>().FromSqlInterpolated(query).FirstOrDefaultAsync();
             return response;
+        }
+
+        public async Task UpdateAsync(T entity)
+        {
+            _dbContext.Entry(entity).State = EntityState.Modified;
+            await _dbContext.SaveChangesAsync();
+            
+           
         }
     }
 }

@@ -13,5 +13,8 @@ namespace HomeService.Application.Repository
         Task<T> GetById(FormattableString query);
 
         Task<T> Create(T entity);
+
+        Task DeleteAsync(T Id);
+        Task UpdateAsync(T entity);
     }
 }

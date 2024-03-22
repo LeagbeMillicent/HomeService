@@ -25,7 +25,7 @@ namespace HomeService.Infrastructure.Persistence.Data
         
         public DbSet<Customer>? Customers { get; set; }
         public DbSet<Worker>? Workers { get; set; }
-        public DbSet<Category>? Categories { get; set; }
+        public DbSet<Services>? Categories { get; set; }
         public DbSet<Request>? Requests { get; set; }
         public DbSet<WorkUnit>? WorkUnits { get; set; }
 
@@ -33,7 +33,7 @@ namespace HomeService.Infrastructure.Persistence.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Category>().HasKey(sc => sc.CategoryId);
+            modelBuilder.Entity<Services>().HasKey(sc => sc.CategoryId);
             modelBuilder.Entity<Customer>().HasKey(sc => sc.CustomerId);
             modelBuilder.Entity<Worker>().HasKey(sc => sc.WorkerId);
             modelBuilder.Entity<Request>().HasKey(sc => sc.RequestId);

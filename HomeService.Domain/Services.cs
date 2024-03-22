@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HomeService.Application.DTOs.Categories
+namespace HomeService.Domain
 {
-    public class ReadCategoriesDto
+    public class Services
     {
         public int CategoryId { get; set; }
         public string? CategoryType { get; set; }
