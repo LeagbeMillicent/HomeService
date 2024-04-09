@@ -19,10 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\HomeService.Application\HomeService.Application.csproj" />
     <ProjectReference Include="..\HomeService.Domain\HomeService.Domain.csproj" />
     <ProjectReference Include="..\HomeService.Infrastructure\HomeService.Infrastructure.csproj" />

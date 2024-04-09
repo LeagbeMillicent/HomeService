@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HomeService.Application.DTOs.Categories
 {
-    public class DeleteCategoriesDto
+    public class DeleteServicesDto
     {
         public int CategoryId { get; set; }
        

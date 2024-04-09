@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HomeService.Application.DTOs.Categories
 {
-    public class UpdateCategoriesDto
+    public class UpdateServicesDto
     {
         public int CategoryId { get; set; }
         public string? CategoryType { get; set; }

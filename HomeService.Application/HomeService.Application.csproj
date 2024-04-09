@@ -24,8 +24,6 @@
   <ItemGroup>
     <Folder Include="Commands\Customers\" />
     <Folder Include="Commands\WorkUnits\" />
-    <Folder Include="Commands\Requests\" />
-    <Folder Include="Commands\Workers\" />
   </ItemGroup>
 
 </Project>
