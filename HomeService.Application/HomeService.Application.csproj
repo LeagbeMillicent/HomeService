@@ -21,9 +21,4 @@
     <ProjectReference Include="..\HomeService.Domain\HomeService.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Commands\Customers\" />
-    <Folder Include="Commands\WorkUnits\" />
-  </ItemGroup>
-
 </Project>
