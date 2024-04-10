@@ -27,7 +27,11 @@ namespace HomeService.Application.Commands.Categories
             var map = _mapper.Map<AddServicesDto>(request.Category);
 
             var result = await _repo.Create(map);
-            return result;
+            return new BaseResponse
+            {
+                Id=result,
+                Message =" Created Succesfully"
+            };
         }
     }
 }
