@@ -10,6 +10,8 @@ namespace HomeService.Application.Repository
     {
         Task<List<T>> GetAll(FormattableString query);
 
+        Task<T> GetByIntId(Object id);
+
         Task<T> GetById(FormattableString query);
 
         Task<T> Create(T entity);

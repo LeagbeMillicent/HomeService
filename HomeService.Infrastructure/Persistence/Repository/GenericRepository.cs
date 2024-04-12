@@ -40,10 +40,17 @@ namespace HomeService.Infrastructure.Persistence.Repository
             return response;
         }
 
+     
+
         public async Task<T> GetById(FormattableString query)
         {
             var response =  await _dbContext.Set<T>().FromSqlInterpolated(query).FirstOrDefaultAsync();
             return response;
+        }
+
+        public async Task<T> GetByIntId(object id)
+        {
+            return await _dbContext.Set<T>().FindAsync(id);
         }
 
         public async Task UpdateAsync(T entity)

@@ -2,6 +2,7 @@
 using HomeService.Application.DTOs.Workers;
 using HomeService.Application.Repository;
 using HomeService.Application.Responses;
+using HomeService.Domain;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -18,18 +19,49 @@ namespace HomeService.Application.Commands.Workers
 
     public class UpdateWorkerCommandHandler : IRequestHandler<UpdateWorkerCommand, BaseResponse>
     {
-        private readonly IGenericRepository<UpdateWorkersDto> _repository;
+        private readonly IGenericRepository<Worker> _repository;
         private readonly IMapper _mapper;
 
-        public UpdateWorkerCommandHandler(IGenericRepository<UpdateWorkersDto> repository, IMapper mapper)
+        public UpdateWorkerCommandHandler(IGenericRepository<Worker> repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
         }
 
-        public Task<BaseResponse> Handle(UpdateWorkerCommand request, CancellationToken cancellationToken)
+        public async Task<BaseResponse> Handle(UpdateWorkerCommand request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var worker = await _repository.GetByIntId(request.Dto.WorkerId);
+
+                if(worker == null)
+                {
+                    return new BaseResponse
+                    {
+                        Message = "Worker not Found",
+                        IsSuccess = false
+                    };
+                }
+
+            //var dto = request.Dto;
+                //_mapper.Map(dto,worker);
+                worker.WorkerContact = request.Dto.WorkerContact;
+                worker.WorkerLocation = request.Dto.WorkerLocation;
+                worker.WorkerName = request.Dto.WorkerName;
+                worker.WorkerAddress = request.Dto.WorkerAddress;
+
+                await _repository.UpdateAsync(worker);
+
+                return new BaseResponse
+                {
+                    Message = "Record Updated Succesfully",
+                    IsSuccess = true
+                };
+            }catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+          
         }
     }
 }
