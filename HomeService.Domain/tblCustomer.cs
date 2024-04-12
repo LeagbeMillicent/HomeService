@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HomeService.Domain
 {
-    public class Customer
+    public class tblCustomer
     {
         public int CustomerId { get; set; }
         public string? CustomerName { get; set; }

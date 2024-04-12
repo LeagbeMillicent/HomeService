@@ -1,4 +1,4 @@
-﻿namespace HomeService.API.Controllers.Servicies
+﻿namespace HomeService.API.Controllers.Services
 {
     public class ServicesController
     {

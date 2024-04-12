@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HomeService.Domain
 {
-    public class WorkUnit
+    public class tblWorkUnit
     {
         public int WorkUnitsId { get; set; }
         public string? WorkUnitsName { get; set;}

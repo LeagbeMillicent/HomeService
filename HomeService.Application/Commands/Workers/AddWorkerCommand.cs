@@ -8,25 +8,25 @@ using MediatR;
 
 namespace HomeService.Application.Commands.Workers
 {
-    public class AddWorkerCommand : IRequest<Worker>
+    public class AddWorkerCommand : IRequest<tblWorker>
     {
         public AddWorkersDto dto {  get; set; }
     }
 
-    public class AddWorkerCommandHandler : IRequestHandler<AddWorkerCommand, Worker>
+    public class AddWorkerCommandHandler : IRequestHandler<AddWorkerCommand, tblWorker>
     {
-        private readonly IGenericRepository<Worker> _repository;
+        private readonly IGenericRepository<tblWorker> _repository;
         private readonly IMapper _mapper;
 
-        public AddWorkerCommandHandler(IGenericRepository<Worker> repository, IMapper mapper)
+        public AddWorkerCommandHandler(IGenericRepository<tblWorker> repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
         }
 
-        public async Task<Worker> Handle(AddWorkerCommand request, CancellationToken cancellationToken)
+        public async Task<tblWorker> Handle(AddWorkerCommand request, CancellationToken cancellationToken)
         {
-            var newWorker = new Worker
+            var newWorker = new tblWorker
             {
                 WorkerAddress = request.dto.WorkerAddress,
                 WorkerContact = request.dto.WorkerContact,
