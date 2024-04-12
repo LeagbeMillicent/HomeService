@@ -29,6 +29,9 @@ namespace HomeService.Infrastructure.Persistence.Data
         public DbSet<Request>? Requests { get; set; }
         public DbSet<WorkUnit>? WorkUnits { get; set; }
 
+        public virtual DbSet<ReadCustomersDto> ReadCustomersDto { get; set; }
+        public virtual DbSet<ReadWorkersDetailsDto> ReadWorkersDetailsDto { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -38,6 +41,8 @@ namespace HomeService.Infrastructure.Persistence.Data
             modelBuilder.Entity<Worker>().HasKey(sc => sc.WorkerId);
             modelBuilder.Entity<Request>().HasKey(sc => sc.RequestId);
             modelBuilder.Entity<WorkUnit>().HasKey(sc => sc.WorkUnitsId);
+            modelBuilder.Entity<ReadCustomersDto>().HasNoKey();
+            modelBuilder.Entity<ReadWorkersDetailsDto>().HasNoKey();
         }
 
 

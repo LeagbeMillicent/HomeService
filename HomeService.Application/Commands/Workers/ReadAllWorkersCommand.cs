@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace HomeService.Application.Commands.Workers
 {
-    public class ReadAllWorkersCommand : IRequest<BaseResponse>
+    public class ReadAllWorkersCommand : IRequest<IReadOnlyList<ReadWorkersDetailsDto>>
     {
         public ReadWorkersDetailsDto dto {  get; set; }
     }
 
-    public class ReadAllWorkersCommandHandler : IRequestHandler<ReadAllWorkersCommand, BaseResponse>
+    public class ReadAllWorkersCommandHandler : IRequestHandler<ReadAllWorkersCommand, IReadOnlyList<ReadWorkersDetailsDto>>
     {
         private readonly IGenericRepository<ReadWorkersDetailsDto> _repository;
         private readonly IMapper _mapper;
@@ -27,9 +27,19 @@ namespace HomeService.Application.Commands.Workers
             _mapper = mapper;
         }
 
-        public Task<BaseResponse> Handle(ReadAllWorkersCommand request, CancellationToken cancellationToken)
+        public async Task<IReadOnlyList<ReadWorkersDetailsDto>> Handle(ReadAllWorkersCommand request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var workers = await _repository.GetAll($"Select * from Workers");
+            var workersData = workers.Select(worker => new ReadWorkersDetailsDto
+            {
+                WorkerId = worker.WorkerId,
+                WorkerAddress = worker.WorkerAddress,
+                WorkerContact = worker.WorkerContact,
+                WorkerLocation = worker.WorkerLocation,
+                WorkerName = worker.WorkerName,
+            }).ToList();
+
+            return workersData;
         }
     }
 }
