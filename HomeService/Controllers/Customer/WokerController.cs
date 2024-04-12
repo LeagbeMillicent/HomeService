@@ -21,5 +21,19 @@ namespace HomeService.API.Controllers.Customer
             return Ok(resp);
         }
 
+        [HttpPut]
+        public async Task<IActionResult> updateWorker([FromBody] UpdateWorkersDto dt)
+        {
+            var resp = await _mediator.Send(new UpdateWorkerCommand { Dto = dt });
+            return Ok(resp);    
+        }
+
+        [HttpGet]
+        public async Task<IReadOnlyList<ReadWorkersDetailsDto>> getAllWorkers()
+        {
+            var respo = await _mediator.Send(new ReadAllWorkersCommand { });
+            return respo;
+        }
+
     }
 }

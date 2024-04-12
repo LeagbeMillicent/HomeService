@@ -27,6 +27,7 @@
   <ItemGroup>
     <Folder Include="Commands\Customers\" />
     <Folder Include="Commands\WorkUnits\" />
+    <Folder Include="Exceptions\" />
   </ItemGroup>
 
 </Project>

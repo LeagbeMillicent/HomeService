@@ -2,30 +2,39 @@
 using HomeService.Application.DTOs.Workers;
 using HomeService.Application.Repository;
 using HomeService.Application.Responses;
+using HomeService.Domain;
 using MediatR;
 
 
 namespace HomeService.Application.Commands.Workers
 {
-    public class AddWorkerCommand : IRequest<BaseResponse>
+    public class AddWorkerCommand : IRequest<Worker>
     {
         public AddWorkersDto dto {  get; set; }
     }
 
-    public class AddWorkerCommandHandler : IRequestHandler<AddWorkerCommand, BaseResponse>
+    public class AddWorkerCommandHandler : IRequestHandler<AddWorkerCommand, Worker>
     {
-        private readonly IGenericRepository<AddWorkersDto> _repository;
+        private readonly IGenericRepository<Worker> _repository;
         private readonly IMapper _mapper;
 
-        public AddWorkerCommandHandler(IGenericRepository<AddWorkersDto> repository, IMapper mapper)
+        public AddWorkerCommandHandler(IGenericRepository<Worker> repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
         }
 
-        public Task<BaseResponse> Handle(AddWorkerCommand request, CancellationToken cancellationToken)
+        public async Task<Worker> Handle(AddWorkerCommand request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var newWorker = new Worker
+            {
+                WorkerAddress = request.dto.WorkerAddress,
+                WorkerContact = request.dto.WorkerContact,
+                WorkerLocation = request.dto.WorkerLocation,
+                WorkerName = request.dto.WorkerName,
+            };
+
+            return await _repository.Create(newWorker);
         }
     }
 }
