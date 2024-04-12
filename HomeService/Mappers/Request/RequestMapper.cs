@@ -5,13 +5,16 @@ using HomeService.Domain;
 
 namespace HomeService.API.Mappers.Request
 {
-    public class RequestMapper : Profile
+    public class RequestProfile : Profile
     {
-        public RequestMapper()
-        {
+      
 
+        public RequestProfile()
+        {
+            CreateMap<CreateRequestDto, tblRequest>();
+            CreateMap<UpdateRequestsDto, tblRequest>();
         }
 
-        
+
     }
 }

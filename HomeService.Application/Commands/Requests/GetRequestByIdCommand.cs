@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace HomeService.Application.Commands.Requests
 {
-    public class GetRequestByIdCommand : IRequest<BaseResponse>
+    public class GetRequestByIdCommand : IRequest<IReadOnlyList<ReadRequestsDto>>
     {
         public int RequestId { get; set; }
     }
 
-    public class GetRequestByIdCommandHandler : IRequestHandler<GetAllRequestCommand, BaseResponse>
+    public class GetRequestByIdCommandHandler : IRequestHandler<GetAllRequestCommand, IReadOnlyList<ReadRequestsDto>>
     {
         private readonly IGenericRepository<ReadRequestsDto> _repository;
         private readonly IMapper _mapper;
@@ -27,7 +27,7 @@ namespace HomeService.Application.Commands.Requests
             _mapper = mapper;
         }
 
-        public Task<BaseResponse> Handle(GetAllRequestCommand request, CancellationToken cancellationToken)
+        public Task<IReadOnlyList<ReadRequestsDto>> Handle(GetAllRequestCommand request, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }

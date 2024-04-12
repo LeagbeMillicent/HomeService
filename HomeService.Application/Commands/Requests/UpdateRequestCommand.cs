@@ -3,6 +3,7 @@ using HomeService.Application.DTOs.Requests;
 using HomeService.Application.Repository;
 using HomeService.Application.Responses;
 using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,9 +28,41 @@ namespace HomeService.Application.Commands.Requests
             _mapper = mapper;
         }
 
-        public Task<BaseResponse> Handle(UpdateRequestCommand request, CancellationToken cancellationToken)
+        public async Task<BaseResponse> Handle(UpdateRequestCommand request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var userRequest = await _genericRepo.GetByIntId(request.dto.ReqId);
+
+                if (userRequest == null)
+                {
+                    return new BaseResponse
+                    {
+                        Message = "Request not Found",
+                        IsSuccess = false
+                    };
+                }
+                    userRequest.ReqId = request.dto.ReqId;
+                    userRequest.UserName = request.dto.UserName;
+                    userRequest.Location = request.dto.Location;
+                    userRequest.Contact = request.dto.Contact;
+                    userRequest.ServiceDescription = request.dto.ServiceDescription;
+
+
+
+                await _genericRepo.UpdateAsync(userRequest);
+
+                return new BaseResponse
+                {
+                    Message = "Record Updated Succesfully",
+                    IsSuccess = true
+                };
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
         }
     }
 }

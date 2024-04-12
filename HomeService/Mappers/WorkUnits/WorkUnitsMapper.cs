@@ -9,10 +9,10 @@ namespace HomeService.API.Mappers.WorkUnits
     {
         public WorkUnitsMapper()
         {
-            CreateMap<WorkUnit, AddWorkUnitsDto>().ReverseMap();
-            CreateMap<WorkUnit, ReadWorkUnitsDto>().ReverseMap();
-            CreateMap<WorkUnit, UpdateWorkUnitsDto>().ReverseMap();
-            CreateMap<WorkUnit, DeleteWorkUnitsDto>().ReverseMap();
+            CreateMap<tblWorkUnit, AddWorkUnitsDto>().ReverseMap();
+            CreateMap<tblWorkUnit, ReadWorkUnitsDto>().ReverseMap();
+            CreateMap<tblWorkUnit, UpdateWorkUnitsDto>().ReverseMap();
+            CreateMap<tblWorkUnit, DeleteWorkUnitsDto>().ReverseMap();
 
         }
     }

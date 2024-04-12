@@ -19,10 +19,10 @@ namespace HomeService.Application.Commands.Workers
 
     public class UpdateWorkerCommandHandler : IRequestHandler<UpdateWorkerCommand, BaseResponse>
     {
-        private readonly IGenericRepository<Worker> _repository;
+        private readonly IGenericRepository<tblWorker> _repository;
         private readonly IMapper _mapper;
 
-        public UpdateWorkerCommandHandler(IGenericRepository<Worker> repository, IMapper mapper)
+        public UpdateWorkerCommandHandler(IGenericRepository<tblWorker> repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
@@ -43,8 +43,8 @@ namespace HomeService.Application.Commands.Workers
                     };
                 }
 
-            //var dto = request.Dto;
-                //_mapper.Map(dto,worker);
+            //var Cdto = request.Dto;
+                //_mapper.Map(Cdto,worker);
                 worker.WorkerContact = request.Dto.WorkerContact;
                 worker.WorkerLocation = request.Dto.WorkerLocation;
                 worker.WorkerName = request.Dto.WorkerName;

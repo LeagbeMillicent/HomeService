@@ -8,8 +8,13 @@ namespace HomeService.Application.DTOs.Requests
 {
     public class UpdateRequestsDto
     {
-        public int RequestId { get; set; }
-        public DateTime RequestDate { get; set; }
-        public string? RequestTitle { get; set; }
+        public int ReqId { get; set; }
+        public string? UserName { get; set; }
+
+        public string? Location { get; set; }
+
+        public string? Contact { get; set; }
+
+        public string? ServiceDescription { get; set; }
     }
 }
