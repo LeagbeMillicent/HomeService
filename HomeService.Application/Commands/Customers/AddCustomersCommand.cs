@@ -2,6 +2,7 @@
 using HomeService.Application.DTOs.Customers;
 using HomeService.Application.Repository;
 using HomeService.Application.Responses;
+using HomeService.Domain;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -18,18 +19,31 @@ namespace HomeService.Application.Commands.Customers
 
     public class AddCustomersCommandHandler : IRequestHandler<AddCustomersCommand, BaseResponse>
     {
-        private readonly IGenericRepository<AddCustomersDto> _repository;
+        private readonly IGenericRepository<tblCustomer> _repository;
         private readonly IMapper _mapper;
 
-        public AddCustomersCommandHandler(IGenericRepository<AddCustomersDto> repository, IMapper mapper)
+        public AddCustomersCommandHandler(IGenericRepository<tblCustomer> repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
         }
 
-        public Task<BaseResponse> Handle(AddCustomersCommand request, CancellationToken cancellationToken)
+        public async Task<BaseResponse> Handle(AddCustomersCommand request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            try
+            {
+                // Map DTO to entity
+                var customerEntity = _mapper.Map<tblCustomer>(request.dto);
+
+                // Add to repository
+                await _repository.Create(customerEntity);
+
+                return new BaseResponse { IsSuccess = true, Message = "Customer added successfully" };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse { IsSuccess = false, Message = $"Failed to add customer: {ex.Message}" };
+            }
         }
     }
 }

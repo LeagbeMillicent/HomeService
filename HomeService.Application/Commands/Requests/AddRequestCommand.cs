@@ -1,35 +1,57 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+using AutoMapper;
 using HomeService.Application.DTOs.Requests;
 using HomeService.Application.Repository;
 using HomeService.Application.Responses;
+using HomeService.Domain;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace HomeService.Application.Commands.Requests
+namespace HomeService.Application.Handlers.Requests
 {
+
     public class AddRequestCommand : IRequest<BaseResponse>
     {
-        public CreateRequestDto dto { get; set; }
+        public CreateRequestDto Cdto { get; set; }
     }
-
     public class AddRequestCommandHandler : IRequestHandler<AddRequestCommand, BaseResponse>
     {
-        private readonly IGenericRepository<CreateRequestDto> _repository;
+        private readonly IGenericRepository<tblRequest> _repository;
         private readonly IMapper _mapper;
 
-        public AddRequestCommandHandler(IGenericRepository<CreateRequestDto> repository, IMapper mapper)
+        public AddRequestCommandHandler(IGenericRepository<tblRequest> repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
         }
 
-        public Task<BaseResponse> Handle(AddRequestCommand request, CancellationToken cancellationToken)
+        public async Task<BaseResponse> Handle(AddRequestCommand request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            try
+            {
+
+                var newRequest = new tblRequest
+                {
+                    UserName = request.Cdto.UserName,
+                    Location = request.Cdto.Location,
+                    Contact = request.Cdto.Contact,
+                    ServiceDescription = request.Cdto.ServiceDescription
+
+                };
+
+               
+                //requestEntity.CreatedAt = DateTime.UtcNow;
+
+               
+                await _repository.Create(newRequest);
+
+                return new BaseResponse { IsSuccess = true, Message = "Request added successfully" };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse { IsSuccess = false, Message = $"Failed to add request: {ex.Message}" };
+            }
         }
     }
 }

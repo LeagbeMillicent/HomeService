@@ -4,6 +4,7 @@ using HomeService.Infrastructure.Extension;
 using HomeService.Infrastructure.Persistence.Data;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 
 var builder = WebApplication.CreateBuilder(args);

@@ -8,10 +8,10 @@ namespace HomeService.API.Mappers.Customers
     {
         public CustomerMapper()
         {
-            CreateMap<Customer, AddCustomersDto>().ReverseMap();
-            CreateMap<Customer, ReadCustomersDto>().ReverseMap();
-            CreateMap<Customer, UpdateCustomersDto>().ReverseMap();
-            CreateMap<Customer, DeleteCustomersDto>().ReverseMap();
+            CreateMap<tblCustomer, AddCustomersDto>().ReverseMap();
+            CreateMap<tblCustomer, ReadCustomersDto>().ReverseMap();
+            CreateMap<tblCustomer, UpdateCustomersDto>().ReverseMap();
+            CreateMap<tblCustomer, DeleteCustomersDto>().ReverseMap();
         }
 
        

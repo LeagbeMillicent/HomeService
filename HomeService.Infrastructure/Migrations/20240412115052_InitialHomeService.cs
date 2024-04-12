@@ -1,12 +1,13 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace HomeService.Infrastructure.Migrations
 {
-    public partial class home_service_1 : Migration
+    /// <inheritdoc />
+    public partial class InitialHomeService : Migration
     {
+        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -21,6 +22,19 @@ namespace HomeService.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Categories", x => x.CategoryId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CreateRequestDto",
+                columns: table => new
+                {
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Contact = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ServiceDescription = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
                 });
 
             migrationBuilder.CreateTable(
@@ -40,17 +54,47 @@ namespace HomeService.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Requests",
+                name: "ReadCustomersDto",
                 columns: table => new
                 {
-                    RequestId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RequestDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    RequestTitle = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    CustomerId = table.Column<int>(type: "int", nullable: false),
+                    CustomerName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CustomerLocation = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CustomerContact = table.Column<int>(type: "int", nullable: false),
+                    CustomerAddress = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Requests", x => x.RequestId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ReadWorkersDetailsDto",
+                columns: table => new
+                {
+                    WorkerId = table.Column<int>(type: "int", nullable: false),
+                    WorkerName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    WorkerLocation = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    WorkerContact = table.Column<int>(type: "int", nullable: false),
+                    WorkerAddress = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Requests",
+                columns: table => new
+                {
+                    ReqId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Contact = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ServiceDescription = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Requests", x => x.ReqId);
                 });
 
             migrationBuilder.CreateTable(
@@ -61,7 +105,7 @@ namespace HomeService.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     WorkerName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     WorkerLocation = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    WorkerContact = table.Column<int>(type: "int", nullable: false),
+                    WorkerContact = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     WorkerAddress = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -76,8 +120,7 @@ namespace HomeService.Infrastructure.Migrations
                     WorkUnitsId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     WorkUnitsName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    WorkUnitsDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    WorkUnitDuration = table.Column<int>(type: "int", nullable: false)
+                    WorkUnitsDescription = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -85,13 +128,23 @@ namespace HomeService.Infrastructure.Migrations
                 });
         }
 
+        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "Categories");
 
             migrationBuilder.DropTable(
+                name: "CreateRequestDto");
+
+            migrationBuilder.DropTable(
                 name: "Customers");
+
+            migrationBuilder.DropTable(
+                name: "ReadCustomersDto");
+
+            migrationBuilder.DropTable(
+                name: "ReadWorkersDetailsDto");
 
             migrationBuilder.DropTable(
                 name: "Requests");
