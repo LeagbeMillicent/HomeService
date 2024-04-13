@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HomeService.Application.DTOs.Requests
+namespace HomeService.Domain
 {
-    public class CreateRequestDto
+    public class tblServiceArea
     {
-        public int CustomerId { get; set; }
+        public int AreaId { get; set; }
+        public string AreaName { get; set; }
         public string Description { get; set; }
     }
 }

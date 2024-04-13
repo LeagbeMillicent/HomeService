@@ -28,7 +28,7 @@ namespace HomeService.Application.Commands.Workers
         {
             var newWorker = new tblWorker
             {
-                WorkerAddress = request.dto.WorkerAddress,
+                WorkerEmail = request.dto.WorkerEmail,
                 WorkerContact = request.dto.WorkerContact,
                 WorkerLocation = request.dto.WorkerLocation,
                 WorkerName = request.dto.WorkerName,

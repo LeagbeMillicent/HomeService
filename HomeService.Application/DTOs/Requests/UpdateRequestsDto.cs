@@ -9,12 +9,10 @@ namespace HomeService.Application.DTOs.Requests
     public class UpdateRequestsDto
     {
         public int ReqId { get; set; }
-        public string? UserName { get; set; }
-
-        public string? Location { get; set; }
-
-        public string? Contact { get; set; }
-
-        public string? ServiceDescription { get; set; }
+        public string Description { get; set; }
+        public string Status { get; set; }
+        public int? WorkerId { get; set; }
+        public string? WorkerName { get; set; }
+        public DateTime? DateAssigned { get; set; }
     }
 }

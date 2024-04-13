@@ -31,20 +31,13 @@ namespace HomeService.Application.Handlers.Requests
             try
             {
 
-                var newRequest = new tblRequest
-                {
-                    UserName = request.Cdto.UserName,
-                    Location = request.Cdto.Location,
-                    Contact = request.Cdto.Contact,
-                    ServiceDescription = request.Cdto.ServiceDescription
-
-                };
+               
 
                
                 //requestEntity.CreatedAt = DateTime.UtcNow;
 
                
-                await _repository.Create(newRequest);
+                
 
                 return new BaseResponse { IsSuccess = true, Message = "Request added successfully" };
             }

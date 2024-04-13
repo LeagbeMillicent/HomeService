@@ -42,12 +42,7 @@ namespace HomeService.Application.Commands.Requests
                         IsSuccess = false
                     };
                 }
-                    userRequest.ReqId = request.dto.ReqId;
-                    userRequest.UserName = request.dto.UserName;
-                    userRequest.Location = request.dto.Location;
-                    userRequest.Contact = request.dto.Contact;
-                    userRequest.ServiceDescription = request.dto.ServiceDescription;
-
+                   
 
 
                 await _genericRepo.UpdateAsync(userRequest);
