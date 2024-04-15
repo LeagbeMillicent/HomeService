@@ -63,6 +63,14 @@ namespace HomeService.Infrastructure.Persistence.Data
             modelBuilder.Entity<ReadRequestsDto>().HasNoKey();
             modelBuilder.Entity<UpdateRequestsDto>().HasNoKey();
             modelBuilder.Entity<AddCustomersDto>().HasNoKey();
+
+            modelBuilder.Entity<tblWorkUnit>()
+            .Property(w => w.Price)
+            .HasColumnType("decimal(18,2)");
+            
+            modelBuilder.Entity<tblPayment>()
+            .Property(w => w.Amount)
+            .HasColumnType("decimal(18,2)");
         }
 
 
