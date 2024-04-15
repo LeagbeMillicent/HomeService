@@ -48,7 +48,7 @@ namespace HomeService.Application.Commands.Workers
                 worker.WorkerContact = request.Dto.WorkerContact;
                 worker.WorkerLocation = request.Dto.WorkerLocation;
                 worker.WorkerName = request.Dto.WorkerName;
-                worker.WorkerAddress = request.Dto.WorkerAddress;
+                worker.WorkerEmail = request.Dto.WorkerEmail;
 
                 await _repository.UpdateAsync(worker);
 

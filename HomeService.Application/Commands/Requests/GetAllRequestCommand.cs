@@ -34,19 +34,7 @@ namespace HomeService.Application.Commands.Requests
        public async Task<IReadOnlyList<ReadRequestsDto>> Handle(GetAllRequestCommand request, CancellationToken cancellationToken)
        {
             var requests = await _repository.GetAll($"Select * from Requests");
-            var requestsData = requests.Select(request => new ReadRequestsDto
-            {
-                //RequestId = request.RequestId,
-                UserName = request.UserName,
-                Location = request.Location,
-                Contact = request.Contact,
-                ServiceDescription = request.ServiceDescription,
-                //CreatedAt = request.CreatedAt,
-                //UpdatedAt = request.UpdatedAt,
-                //IsCompleted = request.IsCompleted
-            }).ToList();
-
-            return requestsData;
+            return requests;
        }
     };
         
