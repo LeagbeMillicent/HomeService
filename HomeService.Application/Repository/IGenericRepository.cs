@@ -18,5 +18,6 @@ namespace HomeService.Application.Repository
 
         Task DeleteAsync(T Id);
         Task UpdateAsync(T entity);
+        Task UpdateAsync(int reqId);
     }
 }

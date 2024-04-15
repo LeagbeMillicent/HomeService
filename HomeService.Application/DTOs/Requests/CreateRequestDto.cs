@@ -8,7 +8,11 @@ namespace HomeService.Application.DTOs.Requests
 {
     public class CreateRequestDto
     {
-        public int CustomerId { get; set; }
-        public string Description { get; set; }
+       
+            public int CustomerId { get; set; }
+            public string? Description { get; set; }
+            public DateTime DateRequested { get; set; }
+            public int? WorkerId { get; set; }
+       
     }
 }

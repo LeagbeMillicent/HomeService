@@ -60,5 +60,10 @@ namespace HomeService.Infrastructure.Persistence.Repository
             
            
         }
+
+        public Task UpdateAsync(int reqId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

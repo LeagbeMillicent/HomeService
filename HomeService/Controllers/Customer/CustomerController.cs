@@ -4,7 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace HomeService.API.Controllers
+namespace HomeService.API.Controllers.Customer
 {
     [Route("api/[controller]/[action]")]
     [ApiController]

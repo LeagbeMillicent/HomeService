@@ -8,7 +8,6 @@ namespace HomeService.Application.DTOs.Requests
 {
     public class DeleteRequestsDto
     {
-        public int RequestId { get; set; }
-       
+        public int ReqId { get; set; }
     }
 }

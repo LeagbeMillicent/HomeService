@@ -2,6 +2,7 @@
 using HomeService.Application.DTOs.Requests;
 using HomeService.Application.Repository;
 using HomeService.Application.Responses;
+using HomeService.Domain;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -19,10 +20,10 @@ namespace HomeService.Application.Commands.Requests
 
     public class UpdateRequestCommandHandler : IRequestHandler<UpdateRequestCommand, BaseResponse>
     {
-        private readonly IGenericRepository<UpdateRequestsDto> _genericRepo;
+        private readonly IGenericRepository<tblRequest> _genericRepo;
         private readonly IMapper _mapper;
 
-        public UpdateRequestCommandHandler(IGenericRepository<UpdateRequestsDto> genericRepo, IMapper mapper)
+        public UpdateRequestCommandHandler(IGenericRepository<tblRequest> genericRepo, IMapper mapper)
         {
             _genericRepo = genericRepo;
             _mapper = mapper;
@@ -30,34 +31,25 @@ namespace HomeService.Application.Commands.Requests
 
         public async Task<BaseResponse> Handle(UpdateRequestCommand request, CancellationToken cancellationToken)
         {
-            try
+            var entity = await _genericRepo.GetByIntId(request.dto.ReqId);
+            if (entity != null)
             {
-                var userRequest = await _genericRepo.GetByIntId(request.dto.ReqId);
+                entity.CustomerId = request.dto.CustomerId;
+                entity.Description = request.dto.Description;
+                entity.Status = request.dto.Status;
+                entity.DateRequested = request.dto.DateRequested;
+                entity.WorkerId = request.dto.WorkerId;
 
-                if (userRequest == null)
-                {
-                    return new BaseResponse
-                    {
-                        Message = "Request not Found",
-                        IsSuccess = false
-                    };
-                }
-                   
-
-
-                await _genericRepo.UpdateAsync(userRequest);
-
-                return new BaseResponse
-                {
-                    Message = "Record Updated Succesfully",
-                    IsSuccess = true
-                };
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
+                await _genericRepo.UpdateAsync(entity);
             }
 
-        }
-    }
+            return new BaseResponse
+            {
+                Id = request.dto.ReqId,
+                IsSuccess = false,
+                Message = $"Update Failed!"
+            };
+
+
+        }   }
 }
