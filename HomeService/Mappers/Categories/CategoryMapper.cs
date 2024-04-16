@@ -9,7 +9,7 @@ namespace HomeService.API.Mappers.Categories
         public CategoryMapper() { 
 
             CreateMap<tblServices, AddServicesDto>().ReverseMap();
-            CreateMap<tblServices, ReadServicesByIdCommand>().ReverseMap();
+            CreateMap<tblServices, ReadServicesByIdDto>().ReverseMap();
             CreateMap<tblServices, UpdateServicesDto>().ReverseMap();
             CreateMap<tblServices, DeleteServicesDto>().ReverseMap();
         }

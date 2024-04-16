@@ -9,21 +9,21 @@ using System.Threading.Tasks;
 
 namespace HomeService.Application.Commands.Categories
 {
-    public class GetAllServicesCommand : IRequest<List<ReadServicesByIdCommand>>
+    public class GetAllServicesCommand : IRequest<List<ReadServicesByIdDto>>
     {
 
     }
 
 
-    public class GetAllCategoriesCommandHandler : IRequestHandler<GetAllServicesCommand, List<ReadServicesByIdCommand>>
+    public class GetAllCategoriesCommandHandler : IRequestHandler<GetAllServicesCommand, List<ReadServicesByIdDto>>
     {
-        private readonly IGenericRepository<ReadServicesByIdCommand> _repository;
-        public GetAllCategoriesCommandHandler(IGenericRepository<ReadServicesByIdCommand> repository)
+        private readonly IGenericRepository<ReadServicesByIdDto> _repository;
+        public GetAllCategoriesCommandHandler(IGenericRepository<ReadServicesByIdDto> repository)
         {
             _repository = repository;
         }
 
-        public async Task<List<ReadServicesByIdCommand>> Handle(GetAllServicesCommand request, CancellationToken cancellationToken)
+        public async Task<List<ReadServicesByIdDto>> Handle(GetAllServicesCommand request, CancellationToken cancellationToken)
         {
             FormattableString query = $"";
             var result = await _repository.GetAll(query);
