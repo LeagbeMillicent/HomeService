@@ -13,7 +13,7 @@ namespace HomeService.Application.Commands.Customers
 {
     public class UpdateCustomerCommand : IRequest<BaseResponse>
     {
-        public UpdateCustomersDto Dto { get; set; }
+        public int CustomerId { get; set; }
     }
 
     public class UpdateCustomerCommandHandler : IRequestHandler<UpdateCustomerCommand, BaseResponse>
@@ -27,9 +27,27 @@ namespace HomeService.Application.Commands.Customers
             _mapper = mapper;
         }
 
-        public Task<BaseResponse> Handle(UpdateCustomerCommand request, CancellationToken cancellationToken)
+        public async Task<BaseResponse> Handle(UpdateCustomerCommand request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var entityToUpdate = await _repository.GetAsync(request.CustomerId);
+
+            if (entityToUpdate == null)
+            {
+                throw new EntryPointNotFoundException($"Entity with ID {request.CustomerId} not found.");
+            }
+
+
+
+            _mapper.Map(request, entityToUpdate);
+
+            await _repository.UpdateAsync(entityToUpdate);
+            return new BaseResponse
+            {
+                Id = request.CustomerId,
+                IsSuccess = true,
+                Message = $"Record Updated successfully"
+            };
+
         }
     }
 }

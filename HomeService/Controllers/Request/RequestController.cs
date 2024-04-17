@@ -11,45 +11,53 @@ namespace HomeService.API.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class RequestController : ControllerBase
+    public class RequestsController : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public RequestController(IMediator mediator)
+        public RequestsController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddRequest(CreateRequestDto dto)
-        {
-            var command = new AddRequestCommand { Cdto = dto };
-            var response = await _mediator.Send(command);
-
-            if (response.IsSuccess)
-            {
-                return Ok(response);
-            }
-            else
-            {
-                return BadRequest(response);
-            }
-        }
-
-
-        [HttpPut]
-        public async Task<IActionResult> updateRequest([FromBody] UpdateRequestsDto dt)
-        {
-            var respond = await _mediator.Send(new UpdateRequestCommand { dto = dt });
-            return Ok(respond);
-        }
-
-
         [HttpGet]
-        public async Task<IReadOnlyList<ReadRequestsDto>> getAllRequests()
+        public async Task<ActionResult<IEnumerable<UpdateRequestsDto>>> GetRequests()
         {
-            var DataResponse = await _mediator.Send(new GetAllRequestCommand { });
-            return DataResponse;
+            var requests = await _mediator.Send(new GetAllRequestCommand());
+            return Ok(requests);
         }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ReadRequestsDto>> GetRequest(int id)
+        {
+            var request = await _mediator.Send(new GetRequestByIdCommand { RequestId = id });
+            if (request == null)
+            {
+                return NotFound();
+            }
+            return Ok(request);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<int>> CreateRequest(AddRequestCommand request)
+        {
+            var id = await _mediator.Send(request);
+            return CreatedAtAction(nameof(GetRequest), new { id = id }, null);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateRequest(int id, UpdateRequestCommand request)
+        {
+            if (id != request.dto.ReqId)
+            {
+                return BadRequest();
+            }
+
+            await _mediator.Send(request);
+            return NoContent();
+        }
+
+       
     }
 }
+

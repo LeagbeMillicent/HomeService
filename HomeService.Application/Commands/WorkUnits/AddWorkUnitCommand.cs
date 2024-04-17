@@ -20,10 +20,10 @@ namespace HomeService.Application.Commands.WorkUnits
 
     public class AddWorkUnitCommandHandler : IRequestHandler<AddWorkUnitCommand, BaseResponse>
     {
-        private readonly IGenericRepository<ReadWorkersDetailsDto> _repository;
+        private readonly IGenericRepository<AddWorkUnitsDto> _repository;
         private readonly IMapper _mapper;
 
-        public AddWorkUnitCommandHandler(IGenericRepository<ReadWorkersDetailsDto> repository, IMapper mapper)
+        public AddWorkUnitCommandHandler(IGenericRepository<AddWorkUnitsDto> repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;

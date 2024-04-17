@@ -40,7 +40,20 @@ namespace HomeService.Infrastructure.Persistence.Repository
             return response;
         }
 
-     
+        public async Task<IEnumerable<T>> GetAllAsync(string sqlCommand)
+        {
+            return await _dbContext.Set<T>().FromSqlRaw(sqlCommand).AsNoTracking().ToListAsync();
+        }
+
+        public async Task<T> GetAsync(int? id)
+        {
+            var result = await _dbContext.FindAsync<T>(id);
+            if (result != null)
+            {
+                _dbContext.Entry(result).State = EntityState.Detached;
+            }
+            return result;
+        }
 
         public async Task<T> GetById(FormattableString query)
         {
@@ -59,6 +72,11 @@ namespace HomeService.Infrastructure.Persistence.Repository
             await _dbContext.SaveChangesAsync();
             
            
+        }
+
+        public Task UpdateAsync(int reqId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

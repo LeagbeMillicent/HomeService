@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace HomeService.Application.DTOs.Categories
 {
-    public class AddServicesDto
+    public class ReadServicesByIdDto
     {
-
-        public string? CategoryType { get; set; }
-        public string? CategoryName { get; set; }
-        public bool IsActive {  get; set; }
+        public int CategoryId { get; set; }
+        
     }
 }

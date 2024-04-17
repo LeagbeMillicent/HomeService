@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HomeService.Application.DTOs.Requests
+namespace HomeService.Application.DTOs.WorkSchedule
 {
-    public class DeleteRequestsDto
+    public class DeletescheduleDto
     {
-        public int ReqId { get; set; }
+        public int ScheduleId { get; set; }
+
     }
 }
