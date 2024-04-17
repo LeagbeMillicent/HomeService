@@ -1,4 +1,5 @@
 ﻿using HomeService.Application.DTOs.Categories;
+using HomeService.Application.DTOs.Services;
 using HomeService.Application.Repository;
 using MediatR;
 using System;
@@ -9,26 +10,38 @@ using System.Threading.Tasks;
 
 namespace HomeService.Application.Commands.Categories
 {
-    public class GetAllServicesCommand : IRequest<List<ReadServicesByIdDto>>
+    public class GetAllServicesCommand : IRequest<List<ReadAllServicesDto>>
     {
+        public bool IsActive { get; set; }
 
     }
 
 
-    public class GetAllCategoriesCommandHandler : IRequestHandler<GetAllServicesCommand, List<ReadServicesByIdDto>>
+    public class GetAllCategoriesCommandHandler : IRequestHandler<GetAllServicesCommand, List<ReadAllServicesDto>>
     {
-        private readonly IGenericRepository<ReadServicesByIdDto> _repository;
-        public GetAllCategoriesCommandHandler(IGenericRepository<ReadServicesByIdDto> repository)
+        private readonly IGenericRepository<ReadAllServicesDto> _repository;
+        public GetAllCategoriesCommandHandler(IGenericRepository<ReadAllServicesDto> repository)
         {
             _repository = repository;
         }
 
-        public async Task<List<ReadServicesByIdDto>> Handle(GetAllServicesCommand request, CancellationToken cancellationToken)
+        public async Task<List<ReadAllServicesDto>> Handle(GetAllServicesCommand request, CancellationToken cancellationToken)
         {
-            FormattableString query = $"";
-            var result = await _repository.GetAll(query);
+            if (request.IsActive == null)
+            {
+                var sqlCommand = $"Select * From tblServices ";
+                var result = await _repository.GetAllAsync(sqlCommand);
+                return result.ToList();
+            }
+            else
+            {
+                var sqlCommand = $"Select * From tblServices Where @IsActive = {request.IsActive} ";
+                var result = await _repository.GetAllAsync(sqlCommand);
+                return result.ToList();
+            }
+            
 
-            return result;
+            
         }
     }
 }

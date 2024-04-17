@@ -3,6 +3,7 @@ using HomeService.Application.DTOs.Customers;
 using HomeService.Application.Repository;
 using HomeService.Application.Responses;
 using MediatR;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,12 +12,12 @@ using System.Threading.Tasks;
 
 namespace HomeService.Application.Commands.Customers
 {
-    public class GetAllCustomersCommand : IRequest<BaseResponse>
+    public class GetAllCustomersCommand : IRequest<IReadOnlyList<ReadCustomersDto>>
     {
-        public ReadCustomersDto dto {  get; set; }
+
     }
 
-    public class GetAllCustomersCommandHandler : IRequestHandler<GetAllCustomersCommand, BaseResponse>
+    public class GetAllCustomersCommandHandler : IRequestHandler<GetAllCustomersCommand, IReadOnlyList<ReadCustomersDto>>
     {
         private readonly IGenericRepository<ReadCustomersDto> _repository;
         private readonly IMapper _mapper;
@@ -27,9 +28,14 @@ namespace HomeService.Application.Commands.Customers
             _mapper = mapper;
         }
 
-        public Task<BaseResponse> Handle(GetAllCustomersCommand request, CancellationToken cancellationToken)
+        public async Task<IReadOnlyList<ReadCustomersDto>> Handle(GetAllCustomersCommand request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+           
+                var sqlQuery = $"Select * From tblCustomer";
+                var result = await _repository.GetAllAsync(sqlQuery);
+                return result.ToList();
+            
+
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using HomeService.Application.DTOs.Categories;
+﻿using AutoMapper;
+using HomeService.Application.DTOs.Categories;
 using HomeService.Application.Repository;
 using MediatR;
 using System;
@@ -18,9 +19,12 @@ namespace HomeService.Application.Commands.Categories
     public class GetCategoriesByIdCommandHandler : IRequestHandler<GetServiceByIdCommand, List<ReadServicesByIdDto>>
     {
         private readonly IGenericRepository<ReadServicesByIdDto> _repository;
-        public GetCategoriesByIdCommandHandler(IGenericRepository<ReadServicesByIdDto> repository)
+        private readonly IMapper _mapper; 
+        public GetCategoriesByIdCommandHandler(IGenericRepository<ReadServicesByIdDto> repository, IMapper mapper)
         {
             _repository = repository;
+            
+           
         }
 
         public async Task<List<ReadServicesByIdDto>> Handle(GetServiceByIdCommand request, CancellationToken cancellationToken)

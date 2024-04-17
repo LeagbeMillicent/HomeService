@@ -8,7 +8,9 @@ namespace HomeService.Application.DTOs.Categories
 {
     public class AddServicesDto
     {
+
         public string? CategoryType { get; set; }
         public string? CategoryName { get; set; }
+        public bool IsActive {  get; set; }
     }
 }

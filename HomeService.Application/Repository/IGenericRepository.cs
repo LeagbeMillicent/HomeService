@@ -19,5 +19,8 @@ namespace HomeService.Application.Repository
         Task DeleteAsync(T Id);
         Task UpdateAsync(T entity);
         Task UpdateAsync(int reqId);
+        Task<T> GetAsync(int? id);
+
+        Task<IEnumerable<T>> GetAllAsync(string sqlCommand);
     }
 }

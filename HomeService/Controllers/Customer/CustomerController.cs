@@ -1,4 +1,6 @@
-﻿using HomeService.Application.Commands.Customers;
+﻿using HomeService.Application.Commands.Categories;
+using HomeService.Application.Commands.Customers;
+using HomeService.Application.Commands.Services;
 using HomeService.Application.DTOs.Customers;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -32,5 +34,45 @@ namespace HomeService.API.Controllers.Customer
                 return BadRequest(response);
             }
         }
+
+        [HttpPut]
+
+        public async Task<IActionResult> UpdateCustomer([FromHeader] UpdateCustomerCommand command)
+        {
+            try
+            {
+                await _mediator.Send(command);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> DeleteCustomer([FromBody] DeleteCustomerCommand command)
+        {
+            try
+            {
+                await _mediator.Send(command);
+                return NoContent();
+            }
+
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllCustomers()
+        {
+            var results = await _mediator.Send(new GetAllCustomersCommand());
+            return Ok(results);
+        }
+
     }
 }
