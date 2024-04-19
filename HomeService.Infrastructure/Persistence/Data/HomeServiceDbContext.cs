@@ -33,7 +33,7 @@ namespace HomeService.Infrastructure.Persistence.Data
         public DbSet<tblPayment>? Payments { get; set; }
         public DbSet<tblWorkSchedule>? WorkSchedules { get; set; }
         public DbSet<tblServiceArea>? ServiceAreas { get; set; }
-
+        public DbSet<AddServicesDto> AddServicesDto { get; set; }
         public virtual DbSet<ReadCustomersDto> ReadCustomersDto { get; set; }
         public virtual DbSet<ReadWorkersDetailsDto> ReadWorkersDetailsDto { get; set; }
         public virtual DbSet<CreateRequestDto> CreateRequestDto { get; set; }
@@ -63,6 +63,7 @@ namespace HomeService.Infrastructure.Persistence.Data
             modelBuilder.Entity<ReadRequestsDto>().HasNoKey();
             modelBuilder.Entity<UpdateRequestsDto>().HasNoKey();
             modelBuilder.Entity<AddCustomersDto>().HasNoKey();
+            modelBuilder.Entity<AddServicesDto>().HasNoKey();
 
             modelBuilder.Entity<tblWorkUnit>()
             .Property(w => w.Price)

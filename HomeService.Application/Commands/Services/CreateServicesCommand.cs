@@ -14,9 +14,9 @@ namespace HomeService.Application.Commands.Categories
 
     public class CreateCategoryCommandHandler : IRequestHandler<CreateServicesCommand, BaseResponse>
     {
-        private readonly IGenericRepository<AddServicesDto> _repo;
+        private readonly IGenericRepository<tblServices> _repo;
         private readonly IMapper _mapper;
-        public CreateCategoryCommandHandler(IGenericRepository<AddServicesDto> repo, IMapper mapper)
+        public CreateCategoryCommandHandler(IGenericRepository<tblServices> repo, IMapper mapper)
         {
             _repo = repo;
             _mapper = mapper;
@@ -24,9 +24,15 @@ namespace HomeService.Application.Commands.Categories
 
         public async Task<BaseResponse> Handle(CreateServicesCommand request, CancellationToken cancellationToken)
         {
-            var map = _mapper.Map<AddServicesDto>(request.Category);
 
-            var result = await _repo.Create(map);
+            var source = new tblServices
+            {
+                CategoryName = request.Category.CategoryName,
+                CategoryType = request.Category.CategoryType,
+                IsActive = request.Category.IsActive,
+            };
+
+            var result = await _repo.Create(source);
             return new BaseResponse
             {
                 Id=result,

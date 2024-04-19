@@ -11,5 +11,6 @@ namespace HomeService.Application.DTOs.Categories
         public int CategoryId { get; set; }
         public string? CategoryType { get; set; }
         public string? CategoryName { get; set; }
+        public bool IsActive { get; set; }  
     }
 }
