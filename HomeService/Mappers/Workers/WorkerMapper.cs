@@ -13,7 +13,7 @@ namespace HomeService.API.Mappers.Workers
             CreateMap<tblWorker, AddWorkersDto>().ReverseMap();
             CreateMap<tblWorker, ReadWorkersDetailsDto>().ReverseMap();
             CreateMap<UpdateWorkersDto, tblWorker>()
-            .ForMember(dest => dest.WorkerId, opt => opt.MapFrom(src => src.WorkerId))  // Assuming Worker has an Id property
+            .ForMember(dest => dest.WorkerId, opt => opt.MapFrom(src => src.WorkerId)) 
             .ForMember(dest => dest.WorkerContact, opt => opt.MapFrom(src => src.WorkerContact))
             .ForMember(dest => dest.WorkerEmail, opt => opt.MapFrom(src => src.WorkerEmail))
             .ForMember(dest => dest.WorkerName, opt => opt.MapFrom(src => src.WorkerName))

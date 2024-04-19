@@ -20,9 +20,12 @@ namespace HomeService.API.Controllers.Services
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateServices([FromBody] CreateServicesCommand command)
+        public async Task<IActionResult> CreateServices([FromBody] AddServicesDto command)
         {
-            var respons = await _mediator.Send(command);
+            var respons = await _mediator.Send(new CreateServicesCommand
+            {
+                Category = command
+            });
 
             if(respons.IsSuccess == false)
             {
@@ -35,11 +38,14 @@ namespace HomeService.API.Controllers.Services
 
         [HttpPut]
 
-        public async Task<IActionResult> UpdateServices([FromBody] UpdateServicesCommand command)
+        public async Task<IActionResult> UpdateServices([FromBody] UpdateServicesDto command)
         {
             try
             {
-                await _mediator.Send(command);
+                await _mediator.Send(new UpdateServicesCommand
+                {
+                    update = command
+                });
                 return NoContent();
             }
             catch (Exception ex)
@@ -66,9 +72,9 @@ namespace HomeService.API.Controllers.Services
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllServices()
+        public async Task<IActionResult> GetAllServices([FromQuery] bool isActive)
         {
-            var results = await _mediator.Send(new GetAllServicesCommand { IsActive = false });
+            var results = await _mediator.Send(new GetAllServicesCommand { IsActive = isActive });
             return Ok(results);
         }
 
