@@ -4,6 +4,7 @@ using HomeService.Application.Repository;
 using HomeService.Application.Responses;
 using HomeService.Domain;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,18 +33,21 @@ namespace HomeService.Application.Commands.Customers
         {
             try
             {
-                // Map DTO to entity
-                var customerEntity = new tblCustomer();
+                
 
 
-                await _repository.Create(customerEntity);
-                customerEntity.CustomerName = request.dto.CustomerName;
-                customerEntity.CustomerLocation = request.dto.CustomerLocation;
-                customerEntity.CustomerContact = request.dto.CustomerContact;
-                customerEntity.CustomerAddress = request.dto.CustomerAddress;
+                var newCustomer = new tblCustomer
+                {
+                    CustomerName = request.dto.CustomerName,
+                    CustomerLocation = request.dto.CustomerLocation,
+                    CustomerContact = request.dto.CustomerContact,
+                    CustomerAddress = request.dto.CustomerAddress
+                };
 
 
-                return new BaseResponse { Id = customerEntity.CustomerId, IsSuccess = true, Message = "Customer added successfully" };
+                var result = await _repository.Create(newCustomer);
+
+                return new BaseResponse { Id = result.CustomerId, IsSuccess = true, Message = "Customer added successfully" };
             }
             catch (Exception ex)
             {
