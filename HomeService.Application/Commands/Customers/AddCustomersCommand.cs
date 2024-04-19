@@ -33,12 +33,17 @@ namespace HomeService.Application.Commands.Customers
             try
             {
                 // Map DTO to entity
-                var customerEntity = _mapper.Map<tblCustomer>(request.dto);
+                var customerEntity = new tblCustomer();
 
-                // Add to repository
+
                 await _repository.Create(customerEntity);
+                customerEntity.CustomerName = request.dto.CustomerName;
+                customerEntity.CustomerLocation = request.dto.CustomerLocation;
+                customerEntity.CustomerContact = request.dto.CustomerContact;
+                customerEntity.CustomerAddress = request.dto.CustomerAddress;
 
-                return new BaseResponse { IsSuccess = true, Message = "Customer added successfully" };
+
+                return new BaseResponse { Id = customerEntity.CustomerId, IsSuccess = true, Message = "Customer added successfully" };
             }
             catch (Exception ex)
             {

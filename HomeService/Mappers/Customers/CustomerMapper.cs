@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using HomeService.Application.Commands.Customers;
 using HomeService.Application.DTOs.Customers;
 using HomeService.Domain;
 
@@ -8,8 +9,8 @@ namespace HomeService.API.Mappers.Customers
     {
         public CustomerMapper()
         {
-            CreateMap<tblCustomer, AddCustomersDto>().ReverseMap();
-            CreateMap<tblCustomer, ReadCustomersDto>().ReverseMap();
+            CreateMap<tblCustomer, AddCustomersCommand>().ReverseMap();
+            //CreateMap<tblCustomer, ReadCustomersDto>().ReverseMap();
             CreateMap<tblCustomer, UpdateCustomersDto>().ReverseMap();
             CreateMap<tblCustomer, DeleteCustomersDto>().ReverseMap();
         }
