@@ -12,79 +12,70 @@ namespace HomeService.API.Controllers.WorkUnit
     [ApiController]
     public class WorkUnitController : ControllerBase
     {
-        public class ServicesController : ControllerBase
+
+        private readonly IMediator _mediator;
+
+        public WorkUnitController(IMediator mediator)
         {
-            private readonly IMediator _mediator;
+            _mediator = mediator;
+        }
 
-            public ServicesController(IMediator mediator)
+        [HttpPost]
+        public async Task<IActionResult> CreateWorkUnit([FromBody] AddWorkUnitCommand command)
+        {
+            var respons = await _mediator.Send(command);
+
+            if (respons.IsSuccess == false)
             {
-                _mediator = mediator;
+                return BadRequest(respons.Message);
             }
 
-            [HttpPost]
-            public async Task<IActionResult> CreateWorkUnit([FromBody] AddWorkUnitCommand command)
+            return Ok(respons);
+        }
+
+
+        [HttpPut]
+
+        public async Task<IActionResult> UpdateWorkUnit([FromBody] UpdateWorkUnitsCommand command)
+        {
+            try
             {
-                var respons = await _mediator.Send(command);
-
-                if (respons.IsSuccess == false)
-                {
-                    return BadRequest(respons.Message);
-                }
-
-                return Ok(respons);
+                await _mediator.Send(command);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
             }
 
-
-            [HttpPut]
-
-            public async Task<IActionResult> UpdateWorkUnit([FromBody] UpdateWorkUnitsCommand command)
-            {
-                try
-                {
-                    await _mediator.Send(command);
-                    return NoContent();
-                }
-                catch (Exception ex)
-                {
-                    return BadRequest(ex.Message);
-                }
-
-
-            }
-
-            [HttpPut]
-            public async Task<IActionResult> DeleteWorkUnit([FromHeader] DeleteWorkUnitsCommand command)
-            {
-                try
-                {
-                    await _mediator.Send(command);
-                    return NoContent();
-                }
-
-                catch (Exception ex)
-                {
-                    return BadRequest(ex.Message);
-                }
-            }
-
-            [HttpGet]
-            public async Task<IActionResult> GetAllWorkUnit()
-            {
-                var results = await _mediator.Send(new GetAllWorkUnitsCommand ());
-                return Ok(results);
-            }
-
-            [HttpGet("{id}")]
-            //public async Task<ActionResult<>> GetRequest(int id)
-            //{
-            //    var request = await _mediator.Send(new { CategoryId = id });
-            //    if (request == null)
-            //    {
-            //        return NotFound();
-            //    }
-            //    return Ok(request);
-            //}
 
         }
+
+        [HttpPut]
+        public async Task<IActionResult> DeleteWorkUnit([FromHeader] DeleteWorkUnitsCommand command)
+        {
+            try
+            {
+                await _mediator.Send(command);
+                return NoContent();
+            }
+
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllWorkUnit()
+        {
+            var results = await _mediator.Send(new GetAllWorkUnitsCommand());
+            return Ok(results);
+        }
+
+       
+
+
     }
+
 }

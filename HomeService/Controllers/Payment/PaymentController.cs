@@ -4,76 +4,75 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HomeService.API.Controllers
+namespace HomeService.API.Controllers.Payment
 {
+    
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class PaymentController : ControllerBase
     {
-        
-            private readonly IMediator _mediator;
 
-            public PaymentController(IMediator mediator)
+        private readonly IMediator _mediator;
+
+        public PaymentController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreatePayment([FromBody] AddPaymentcommand command)
+        {
+            var respons = await _mediator.Send(command);
+
+            if (respons.IsSuccess == false)
             {
-                _mediator = mediator;
+                return BadRequest(respons.Message);
             }
 
-            [HttpPost]
-            public async Task<IActionResult> CreatePayment([FromBody] AddPaymentcommand command)
+            return Ok(respons.Message);
+        }
+        [HttpPut]
+
+        public async Task<IActionResult> UpdatePayment([FromHeader] UpdatePaymentCommand command)
+        {
+            try
             {
-                var respons = await _mediator.Send(command);
-
-                if (respons.IsSuccess == false)
-                {
-                    return BadRequest(respons.Message);
-                }
-
-                return Ok(respons);
+                await _mediator.Send(command);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
             }
 
 
-            [HttpPut]
+        }
 
-            public async Task<IActionResult> UpdatePayment([FromHeader] UpdatePaymentCommand command)
+        [HttpPut]
+        public async Task<IActionResult> DeletePayment([FromHeader] DeletePaymentCommand command)
+        {
+            try
             {
-                try
-                {
-                    await _mediator.Send(command);
-                    return NoContent();
-                }
-                catch (Exception ex)
-                {
-                    return BadRequest(ex.Message);
-                }
-
-
+                await _mediator.Send(command);
+                return NoContent();
             }
 
-            [HttpPut]
-            public async Task<IActionResult> DeletePayment([FromHeader] DeletePaymentCommand command)
+            catch (Exception ex)
             {
-                try
-                {
-                    await _mediator.Send(command);
-                    return NoContent();
-                }
-
-                catch (Exception ex)
-                {
-                    return BadRequest(ex.Message);
-                }
+                return BadRequest(ex.Message);
             }
+        }
 
-            [HttpGet]
-            public async Task<IActionResult> GetAllPayment()
-            {
-                var results = await _mediator.Send(new GetAllPaymentCommad());
-                return Ok(results);
-            }
+        [HttpGet]
+        public async Task<IActionResult> GetAllPayment()
+        {
+            var results = await _mediator.Send(new GetAllPaymentCommad());
+            return Ok(results);
+        }
 
-            
 
-        
+
+
     }
 
 }
