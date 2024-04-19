@@ -5,12 +5,33 @@ using HomeService.Infrastructure.Persistence.Data;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using System.Text;
+using HomeService.API.Extensions;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 IConfiguration configuration = new ConfigurationBuilder().SetBasePath(System.IO.Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", reloadOnChange: true, optional: false).AddEnvironmentVariables().Build();
+
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer
+(
+    options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateAudience = true,//
+            ValidateIssuer = true,
+            ValidAudience = configuration["JWT:Audience"],
+            ValidIssuer = configuration["JWT:Issuer"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Key"])),
+            ValidateIssuerSigningKey = true,
+        };
+    }
+);
 
 builder.Services.AddDbContext<HomeServiceDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -20,6 +41,10 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectio
 //builder.Services.AddMediatR(ccfg => ccfg.RegisterServicesFromAssemblies(typeof(Program).Assembly));
 builder.Services.AddRepositories();
 builder.Services.AddApplication();
+
+
+
+
 //builder.Services.AddAu();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -37,6 +62,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
