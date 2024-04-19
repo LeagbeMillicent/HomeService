@@ -1,0 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace HomeService.Application.DTOs.PayMent
+{
+    public class AddPaymentDto 
+    {
+        public decimal Amount { get; set; }
+        public DateTime PaymentDate { get; set; }
+        public string? PaymentMethod { get; set; }
+    }
+}
