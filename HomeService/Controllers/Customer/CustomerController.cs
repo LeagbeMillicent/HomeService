@@ -37,10 +37,12 @@ namespace HomeService.API.Controllers.Customer
 
         [HttpPut]
 
-        public async Task<IActionResult> UpdateCustomer([FromHeader] UpdateCustomerCommand command)
+        public async Task<IActionResult> UpdateCustomer([FromHeader] int Id,[FromBody] UpdateCustomersDto dto)
         {
+            
             try
             {
+                var command = new UpdateCustomerCommand { CustomerId = Id, Customer = dto };
                 await _mediator.Send(command);
                 return NoContent();
             }
@@ -52,7 +54,7 @@ namespace HomeService.API.Controllers.Customer
 
         }
 
-        [HttpPut]
+        [HttpDelete]
         public async Task<IActionResult> DeleteCustomer([FromBody] DeleteCustomerCommand command)
         {
             try

@@ -30,12 +30,24 @@ namespace HomeService.Application.Commands.Customers
 
         public async Task<IReadOnlyList<ReadCustomersDto>> Handle(GetAllCustomersCommand request, CancellationToken cancellationToken)
         {
-           
-                var sqlQuery = $"Select * From Customers";
-                var result = await _repository.GetAllAsync(sqlQuery);
-                return result.ToList();
-            
 
+            var sqlQuery = "SELECT CustomerId, CustomerName, CustomerLocation, CustomerContact, CustomerAddress FROM Customers";
+            var results = await _repository.GetAllAsync(sqlQuery);
+
+            var customers = results.Select(r => new ReadCustomersDto
+            {
+                CustomerId = r.CustomerId,
+                CustomerName = r.CustomerName,
+                CustomerLocation = r.CustomerLocation,
+                CustomerContact = r.CustomerContact,
+                CustomerAddress = r.CustomerAddress
+            }).ToList();
+
+            return customers;
         }
+
+
+
     }
+    
 }
