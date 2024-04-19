@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace HomeService.Application.Commands.WorkUnits
 {
-    public  class DeleteWorkUnitsCommand : IRequest<BaseResponse>
+    public  class DeleteWorkUnitsCommand : IRequest<Unit>
     {
-        public DeleteWorkUnitsDto unitsDto {  get; set; }
+        public int WorkUnitsId { get; set; }
     }
 
-    public class DeleteWorkUnitsCommandHandler : IRequestHandler<DeleteWorkUnitsCommand, BaseResponse>
+    public class DeleteWorkUnitsCommandHandler : IRequestHandler<DeleteWorkUnitsCommand>
     {
         private readonly IGenericRepository<DeleteWorkUnitsDto> _repository;
         private readonly IMapper _mapper;
@@ -27,9 +27,23 @@ namespace HomeService.Application.Commands.WorkUnits
             _mapper = mapper;
         }
 
-        public Task<BaseResponse> Handle(DeleteWorkUnitsCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(DeleteWorkUnitsCommand request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var entityToDelete = await _repository.GetAsync(request.WorkUnitsId);
+
+
+                _mapper.Map(request, entityToDelete);
+                await _repository.UpdateAsync(entityToDelete);
+                return Unit.Value;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
+            return default;
         }
     }
 }

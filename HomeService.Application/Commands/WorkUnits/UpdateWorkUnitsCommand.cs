@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace HomeService.Application.Commands.WorkUnits
 {
-    public class UpdateWorkUnitsCommand : IRequest<BaseResponse>
+    public class UpdateWorkUnitsCommand : IRequest<Unit>
     {
-        public UpdateWorkUnitsDto dto {  get; set; }
+        public int WorkUnitsId { get; set; }
     }
 
-    public class UpdateWorkUnitsCommandHandler : IRequestHandler<UpdateWorkUnitsCommand, BaseResponse>
+    public class UpdateWorkUnitsCommandHandler : IRequestHandler<UpdateWorkUnitsCommand>
     {
         private readonly IGenericRepository<UpdateWorkUnitsDto> _repository;
         private readonly IMapper _mapper;
@@ -27,9 +27,21 @@ namespace HomeService.Application.Commands.WorkUnits
             _mapper = mapper;
         }
 
-        public Task<BaseResponse> Handle(UpdateWorkUnitsCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdateWorkUnitsCommand request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var entityToUpdate = await _repository.GetAsync(request.WorkUnitsId);
+            if (entityToUpdate == null)
+            {
+                throw new EntryPointNotFoundException($"Entity with ID {request.WorkUnitsId} not found.");
+            }
+
+            _mapper.Map(request, entityToUpdate);
+
+           
+            await _repository.UpdateAsync(entityToUpdate);
+            return Unit.Value;
         }
+
+      
     }
 }

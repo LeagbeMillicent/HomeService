@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using HomeService.Application.DTOs.Workers;
+using HomeService.Application.DTOs.WorkSchedule;
 using HomeService.Application.DTOs.WorkUnits;
 using HomeService.Application.Repository;
 using HomeService.Application.Responses;
@@ -29,9 +30,16 @@ namespace HomeService.Application.Commands.WorkUnits
             _mapper = mapper;
         }
 
-        public Task<BaseResponse> Handle(AddWorkUnitCommand request, CancellationToken cancellationToken)
+        public async Task<BaseResponse> Handle(AddWorkUnitCommand request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var map = _mapper.Map<AddWorkUnitsDto>(request);
+
+            var result = await _repository.Create(map);
+            return new BaseResponse
+            {
+                Id = result,
+                Message = " Created Succesfully"
+            };
         }
     }
 }
