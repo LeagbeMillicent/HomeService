@@ -20,7 +20,12 @@ namespace HomeService.Application.Commands.WorkSchedule
         private readonly IGenericRepository<tblWorkSchedule> _repo;
         private readonly IMapper _mapper;
 
-        public 
+        public UpdateWorkScheduleCommandHandler(IGenericRepository<tblWorkSchedule> repo, IMapper mapper) 
+        {
+            _repo = repo;
+            _mapper = mapper;
+        }
+
         public Task<Unit> Handle(UpdateWorkScheduleCommand request, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
