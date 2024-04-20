@@ -38,10 +38,12 @@ namespace HomeService.Application.Commands.Customers
                 throw new EntryPointNotFoundException($"Entity with ID {request.CustomerId} not found.");
             }
 
-            var data = _mapper.Map<tblCustomer>(request.Customer);
-            
+            entityToUpdate.CustomerAddress = request.Customer.CustomerAddress ?? entityToUpdate.CustomerAddress;
+            entityToUpdate.CustomerContact = request.Customer.CustomerContact ?? entityToUpdate.CustomerContact;
+            entityToUpdate.CustomerLocation = request.Customer.CustomerLocation ?? entityToUpdate.CustomerLocation;
+           
 
-            await _repository.UpdateAsync(data);
+            await _repository.UpdateAsync(entityToUpdate);
             return new BaseResponse
             {
                 Id = request.CustomerId,
