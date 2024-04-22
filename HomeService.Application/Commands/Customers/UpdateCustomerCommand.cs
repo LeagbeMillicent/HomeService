@@ -36,12 +36,10 @@ namespace HomeService.Application.Commands.Customers
             if (entityToUpdate == null)
             {
                 throw new EntryPointNotFoundException($"Entity with ID {request.CustomerId} not found.");
-            }
+            }            
 
-            var data = _mapper.Map<tblCustomer>(request.Customer);
-            
 
-            await _repository.UpdateAsync(data);
+            //await _repository.UpdateAsync(data);
             return new BaseResponse
             {
                 Id = request.CustomerId,
