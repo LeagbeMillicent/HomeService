@@ -61,9 +61,9 @@ namespace HomeService.Infrastructure.Persistence.Data
 
             modelBuilder.Entity<ReadCustomersDto>().HasNoKey();
             modelBuilder.Entity<ReadWorkersDetailsDto>().HasNoKey();
-            modelBuilder.Entity<CreateRequestDto>().HasNoKey();
+            //modelBuilder.Entity<CreateRequestDto>().HasNoKey();
             modelBuilder.Entity<ReadRequestsDto>().HasNoKey();
-            modelBuilder.Entity<UpdateRequestsDto>().HasNoKey();
+            //modelBuilder.Entity<UpdateRequestsDto>().HasNoKey();
             //modelBuilder.Entity<AddCustomersDto>().HasNoKey();
             //modelBuilder.Entity<AddServicesDto>().HasNoKey();
 

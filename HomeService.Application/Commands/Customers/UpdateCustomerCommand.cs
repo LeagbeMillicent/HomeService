@@ -2,6 +2,7 @@
 using HomeService.Application.DTOs.Customers;
 using HomeService.Application.Repository;
 using HomeService.Application.Responses;
+using HomeService.Domain;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -14,14 +15,15 @@ namespace HomeService.Application.Commands.Customers
     public class UpdateCustomerCommand : IRequest<BaseResponse>
     {
         public int CustomerId { get; set; }
+        public UpdateCustomersDto Customer { get; set; }
     }
 
     public class UpdateCustomerCommandHandler : IRequestHandler<UpdateCustomerCommand, BaseResponse>
     {
-        private readonly IGenericRepository<UpdateCustomersDto> _repository;
+        private readonly IGenericRepository<tblCustomer> _repository;
         private readonly IMapper _mapper;
 
-        public UpdateCustomerCommandHandler(IGenericRepository<UpdateCustomersDto> repository, IMapper mapper)
+        public UpdateCustomerCommandHandler(IGenericRepository<tblCustomer> repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
@@ -36,9 +38,10 @@ namespace HomeService.Application.Commands.Customers
                 throw new EntryPointNotFoundException($"Entity with ID {request.CustomerId} not found.");
             }
 
-
-
-            _mapper.Map(request, entityToUpdate);
+            entityToUpdate.CustomerAddress = request.Customer.CustomerAddress ?? entityToUpdate.CustomerAddress;
+            entityToUpdate.CustomerContact = request.Customer.CustomerContact ?? entityToUpdate.CustomerContact;
+            entityToUpdate.CustomerLocation = request.Customer.CustomerLocation ?? entityToUpdate.CustomerLocation;
+           
 
             await _repository.UpdateAsync(entityToUpdate);
             return new BaseResponse
