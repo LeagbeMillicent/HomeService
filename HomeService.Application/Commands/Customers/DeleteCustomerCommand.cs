@@ -35,7 +35,7 @@ namespace HomeService.Application.Commands.Customers
                 throw new EntryPointNotFoundException($"Entity with ID {request.CustomerId} not found.");
             }
 
-            _mapper.Map(request.CustomerId, entityToDelete);
+            //_mapper.Map(request.CustomerId, entityToDelete);
 
             await _repository.UpdateAsync(entityToDelete);
             return Unit.Value;

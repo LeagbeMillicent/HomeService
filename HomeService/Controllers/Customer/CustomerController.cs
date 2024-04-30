@@ -44,7 +44,7 @@ namespace HomeService.API.Controllers.Customer
             {
                 var command = new UpdateCustomerCommand { CustomerId = Id, Customer = dto };
                 await _mediator.Send(command);
-                return NoContent();
+                return Ok(command);
             }
             catch (Exception ex)
             {

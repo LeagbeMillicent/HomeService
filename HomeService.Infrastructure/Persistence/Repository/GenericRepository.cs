@@ -2,12 +2,6 @@
 using HomeService.Application.Repository;
 using HomeService.Infrastructure.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace HomeService.Infrastructure.Persistence.Repository
 {
@@ -70,7 +64,6 @@ namespace HomeService.Infrastructure.Persistence.Repository
         {
             _dbContext.Entry(entity).State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();
-            
            
         }
 

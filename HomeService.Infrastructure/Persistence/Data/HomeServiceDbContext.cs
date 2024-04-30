@@ -1,7 +1,11 @@
 ﻿using HomeService.Application.DTOs.Categories;
 using HomeService.Application.DTOs.Customers;
+using HomeService.Application.DTOs.NotificationDto;
+using HomeService.Application.DTOs.PayMent;
 using HomeService.Application.DTOs.Requests;
+using HomeService.Application.DTOs.Services;
 using HomeService.Application.DTOs.Workers;
+using HomeService.Application.DTOs.WorkSchedule;
 using HomeService.Application.DTOs.WorkUnits;
 using HomeService.Domain;
 using Microsoft.EntityFrameworkCore;
@@ -25,23 +29,24 @@ namespace HomeService.Infrastructure.Persistence.Data
         
         public DbSet<tblCustomer>? Customers { get; set; }
         public DbSet<tblWorker>? Workers { get; set; }
-        public DbSet<tblServices>? Categories { get; set; }
+        public DbSet<tblServices>? Services { get; set; }
         public DbSet<tblRequest>? Requests { get; set; }
         public DbSet<tblWorkUnit>? WorkUnits { get; set; }
         public DbSet<tblAdmin>? Admins { get; set; }
-        public DbSet<tblNotification>? Notification { get; set; }
+        public DbSet<tblNotification>? Notifications { get; set; }
         public DbSet<tblPayment>? Payments { get; set; }
         public DbSet<tblWorkSchedule>? WorkSchedules { get; set; }
         public DbSet<tblServiceArea>? ServiceAreas { get; set; }
-        //public DbSet<AddServicesDto> AddServicesDto { get; set; }
 
 
         public virtual DbSet<ReadCustomersDto> ReadCustomersDto { get; set; }
         public virtual DbSet<ReadWorkersDetailsDto> ReadWorkersDetailsDto { get; set; }
-        //public virtual DbSet<CreateRequestDto> CreateRequestDto { get; set; }
-        //public virtual DbSet<AddCustomersDto> AddCustomersDto { get; set; }
         public virtual DbSet<ReadRequestsDto> ReadRequestsDto { get; set; }
-        //public virtual DbSet<UpdateRequestsDto> UpdateRequestsDto { get; set; }
+        public virtual DbSet<GetAllNotificationsDto> GetAllNotificationsDto { get; set; }
+        public virtual DbSet<GetAllPaymentDto> GetAllPaymentDto { get; set; }
+        public virtual DbSet<ReadAllServicesDto> ReadAllServicesDto { get; set; }
+        public virtual DbSet<GetAllScheduleDto> GetAllScheduleDto { get; set; }
+        public virtual DbSet<ReadWorkUnitsDto> ReadWorkUnitsDto { get; set; }
 
 
 
@@ -61,11 +66,14 @@ namespace HomeService.Infrastructure.Persistence.Data
 
             modelBuilder.Entity<ReadCustomersDto>().HasNoKey();
             modelBuilder.Entity<ReadWorkersDetailsDto>().HasNoKey();
-            //modelBuilder.Entity<CreateRequestDto>().HasNoKey();
             modelBuilder.Entity<ReadRequestsDto>().HasNoKey();
-            //modelBuilder.Entity<UpdateRequestsDto>().HasNoKey();
-            //modelBuilder.Entity<AddCustomersDto>().HasNoKey();
-            //modelBuilder.Entity<AddServicesDto>().HasNoKey();
+            modelBuilder.Entity<GetAllNotificationsDto>().HasNoKey();
+            modelBuilder.Entity<GetAllPaymentDto>().HasNoKey();
+            modelBuilder.Entity<ReadAllServicesDto>().HasNoKey();
+            modelBuilder.Entity<GetAllScheduleDto>().HasNoKey();
+            modelBuilder.Entity<ReadWorkUnitsDto>().HasNoKey();
+
+           
 
             modelBuilder.Entity<tblWorkUnit>()
             .Property(w => w.Price)

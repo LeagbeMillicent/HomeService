@@ -11,7 +11,7 @@ namespace HomeService.Application.DTOs.Customers
         public int CustomerId { get; set; }
         public string? CustomerName { get; set; }
         public string? CustomerLocation { get; set; }
-        public int? CustomerContact { get; set; }
+        public string? CustomerContact { get; set; }
         public string? CustomerAddress { get; set; }
     }
 }
