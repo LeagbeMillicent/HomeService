@@ -12,5 +12,6 @@ namespace HomeService.Application.DTOs.Workers
         public string? WorkerLocation { get; set; }
         public string? WorkerContact { get; set; }
         public string? WorkerEmail { get; set; }
+        public string? WorkerCategory { get; set; }
     }
 }

@@ -2,9 +2,11 @@
 using HomeService.Application.DTOs.Workers;
 using HomeService.Application.Repository;
 using HomeService.Application.Responses;
+using HomeService.Domain;
 using MediatR;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,10 +35,12 @@ namespace HomeService.Application.Commands.Workers
             var workersData = workers.Select(worker => new ReadWorkersDetailsDto
             {
                 WorkerId = worker.WorkerId,
-                WorkerAddress = worker.WorkerAddress,
+                WorkerName = worker.WorkerName,
+                WorkerEmail = worker.WorkerEmail,
                 WorkerContact = worker.WorkerContact,
                 WorkerLocation = worker.WorkerLocation,
-                WorkerName = worker.WorkerName,
+                WorkerCategory = worker.WorkerCategory
+
             }).ToList();
 
             return workersData;

@@ -1,7 +1,10 @@
 ﻿using HomeService.Application.Commands.Categories;
 using HomeService.Application.Commands.Services;
+using HomeService.Application.Commands.Workers;
 using HomeService.Application.Commands.WorkSchedule;
 using HomeService.Application.DTOs.Categories;
+using HomeService.Application.DTOs.Workers;
+using HomeService.Application.DTOs.WorkSchedule;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -19,18 +22,14 @@ namespace HomeService.API.Controllers.WorkSchedule
                 _mediator = mediator;
             }
 
-            [HttpPost]
-            public async Task<IActionResult> CreateSchedules([FromBody] AddWorkScheduleCommand command)
-            {
-                var respons = await _mediator.Send(command);
+        [HttpPost]
+        public async Task<IActionResult> CreateSchedules([FromBody] AddScheduleDto dto)
+        {
+            var respons = await _mediator.Send(new AddWorkScheduleCommand { scheduleDto = dto });
 
-                if (respons.IsSuccess == false)
-                {
-                    return BadRequest(respons.Message);
-                }
+            return Ok(respons);
 
-                return Ok(respons);
-            }
+        }
 
 
             [HttpPut]

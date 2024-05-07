@@ -35,8 +35,9 @@ namespace HomeService.Application.Commands.Categories
             var result = await _repo.Create(source);
             return new BaseResponse
             {
-                Id=result,
-                Message =" Created Succesfully"
+                Id = result,
+                Message = result.CategoryId > 0 ? "Created Succesfully" : "Creation failed",
+                IsSuccess = result.CategoryId > 0 ? true : false
             };
         }
     }

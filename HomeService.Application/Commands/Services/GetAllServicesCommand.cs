@@ -28,22 +28,12 @@ namespace HomeService.Application.Commands.Categories
 
         public async Task<List<ReadAllServicesDto>> Handle(GetAllServicesCommand request, CancellationToken cancellationToken)
         {
-            //if (request.IsActive == null)
-            //{
-            //    var sqlCommand = $"Select * From tblServices ";
-            //    var result = await _repository.GetAllAsync(sqlCommand);
-            //    return result.ToList();
-            //}
-            //else
-            //{
-            //    var sqlCommand = $"Select * From tblServices Where @IsActive = {request.IsActive} ";
-            //    var result = await _repository.GetAllAsync(sqlCommand);
-            //    return result.ToList();
-            //}
-            FormattableString cond = $"Select * from tblServices";
+            
+           
+            FormattableString cond = $"Select * from Services where IsActive = 1";
             if (request.IsActive == null)
             {
-                cond = $"Select * from tblServices where IsActive = {request.IsActive}";
+                cond = $"Select * from Services";
             }
                 var serices = await _repository.GetAll(cond);
             var serviceData = serices.Select(services => new ReadAllServicesDto

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HomeService.Infrastructure.Migrations
 {
     [DbContext(typeof(HomeServiceDbContext))]
-    [Migration("20240419115954_HomeService")]
-    partial class HomeService
+    [Migration("20240506120436_homeService")]
+    partial class homeService
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,116 +24,6 @@ namespace HomeService.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("HomeService.Application.DTOs.Customers.ReadCustomersDto", b =>
-                {
-                    b.Property<string>("CustomerAddress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("CustomerContact")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CustomerLocation")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CustomerName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.ToTable("ReadCustomersDto");
-                });
-
-            modelBuilder.Entity("HomeService.Application.DTOs.Requests.CreateRequestDto", b =>
-                {
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DateRequested")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("WorkerId")
-                        .HasColumnType("int");
-
-                    b.ToTable("CreateRequestDto");
-                });
-
-            modelBuilder.Entity("HomeService.Application.DTOs.Requests.ReadRequestsDto", b =>
-                {
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("DateAssigned")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateRequested")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ReqId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("WorkerId")
-                        .HasColumnType("int");
-
-                    b.ToTable("ReadRequestsDto");
-                });
-
-            modelBuilder.Entity("HomeService.Application.DTOs.Requests.UpdateRequestsDto", b =>
-                {
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("DateAssigned")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateRequested")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ReqId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("WorkerId")
-                        .HasColumnType("int");
-
-                    b.ToTable("UpdateRequestsDto");
-                });
-
-            modelBuilder.Entity("HomeService.Application.DTOs.Workers.ReadWorkersDetailsDto", b =>
-                {
-                    b.Property<string>("WorkerAddress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("WorkerContact")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WorkerId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("WorkerLocation")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("WorkerName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.ToTable("ReadWorkersDetailsDto");
-                });
 
             modelBuilder.Entity("HomeService.Domain.tblAdmin", b =>
                 {
@@ -208,7 +98,7 @@ namespace HomeService.Infrastructure.Migrations
 
                     b.HasKey("NotId");
 
-                    b.ToTable("Notification");
+                    b.ToTable("Notifications");
                 });
 
             modelBuilder.Entity("HomeService.Domain.tblPayment", b =>
@@ -314,7 +204,7 @@ namespace HomeService.Infrastructure.Migrations
 
                     b.HasKey("CategoryId");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Services");
                 });
 
             modelBuilder.Entity("HomeService.Domain.tblWorkSchedule", b =>

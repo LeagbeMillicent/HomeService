@@ -34,7 +34,6 @@ namespace HomeService.Application.Commands.Services
                 throw new EntryPointNotFoundException($"Entity with ID {request.CategoryId} not found.");
             }
 
-            _mapper.Map(request, entityToUpdate);
 
             entityToUpdate.IsActive = false;
             await _repo.UpdateAsync(entityToUpdate);

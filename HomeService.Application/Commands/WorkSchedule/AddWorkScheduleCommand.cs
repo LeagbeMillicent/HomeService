@@ -14,32 +14,38 @@ using System.Threading.Tasks;
 
 namespace HomeService.Application.Commands.WorkSchedule
 {
-    public class AddWorkScheduleCommand : IRequest<BaseResponse>
+    public class AddWorkScheduleCommand : IRequest<tblWorkSchedule>
     {
         public AddScheduleDto scheduleDto { get; set; } 
     }
 
-    public class AddworkScheduleHandler : IRequestHandler<AddWorkScheduleCommand, BaseResponse>
+    public class AddworkScheduleHandler : IRequestHandler<AddWorkScheduleCommand, tblWorkSchedule>
     {
-        private readonly IGenericRepository<AddScheduleDto> _repository;
+        private readonly IGenericRepository<tblWorkSchedule> _repository;
+
+
         private readonly IMapper _mapper;
 
-        public AddworkScheduleHandler(IGenericRepository<AddScheduleDto> repository, IMapper mapper)
+        public AddworkScheduleHandler(IGenericRepository<tblWorkSchedule> repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
         }
 
-        public async Task<BaseResponse> Handle(AddWorkScheduleCommand request, CancellationToken cancellationToken)
+        public async Task<tblWorkSchedule> Handle(AddWorkScheduleCommand request, CancellationToken cancellationToken)
         {
-            var map = _mapper.Map<AddScheduleDto>(request);
-
-            var result = await _repository.Create(map);
-            return new BaseResponse
+          
+            var newSchedule = new tblWorkSchedule
             {
-                Id = result,
-                Message = " Created Succesfully"
+                WorkerId = request.scheduleDto.WorkerId,
+                Date = request.scheduleDto.Date,
+                StartTime = request.scheduleDto.StartTime,
+                EndTime = request.scheduleDto.EndTime
+
             };
+
+            return await _repository.Create(newSchedule);
+
         }
     }
 }

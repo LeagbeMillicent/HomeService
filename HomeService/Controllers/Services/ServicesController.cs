@@ -29,7 +29,7 @@ namespace HomeService.API.Controllers.Services
 
             if(respons.IsSuccess == false)
             {
-                return BadRequest(respons.Message);
+                return BadRequest();
             }
 
             return Ok(respons);
@@ -56,7 +56,7 @@ namespace HomeService.API.Controllers.Services
            
         }
 
-        [HttpPut]
+        [HttpDelete]
         public async Task<IActionResult> DeleteServices([FromBody] DeleteServiceCommand command)
         {
             try

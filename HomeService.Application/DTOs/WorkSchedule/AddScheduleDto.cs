@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HomeService.Application.DTOs.Workers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,7 @@ namespace HomeService.Application.DTOs.WorkSchedule
     {
         public int WorkerId { get; set; }
         public DateTime Date { get; set; }
+        public ReadWorkersDetailsDto WorkersDetailsDto { get; set; }
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
     }

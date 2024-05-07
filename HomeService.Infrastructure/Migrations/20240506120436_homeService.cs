@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HomeService.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class HomeService : Migration
+    public partial class homeService : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -27,34 +27,6 @@ namespace HomeService.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Categories",
-                columns: table => new
-                {
-                    CategoryId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CategoryType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CategoryName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Categories", x => x.CategoryId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CreateRequestDto",
-                columns: table => new
-                {
-                    CustomerId = table.Column<int>(type: "int", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DateRequested = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    WorkerId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Customers",
                 columns: table => new
                 {
@@ -71,7 +43,7 @@ namespace HomeService.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Notification",
+                name: "Notifications",
                 columns: table => new
                 {
                     NotId = table.Column<int>(type: "int", nullable: false)
@@ -83,51 +55,7 @@ namespace HomeService.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Notification", x => x.NotId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ReadCustomersDto",
-                columns: table => new
-                {
-                    CustomerId = table.Column<int>(type: "int", nullable: false),
-                    CustomerName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CustomerLocation = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CustomerContact = table.Column<int>(type: "int", nullable: false),
-                    CustomerAddress = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ReadRequestsDto",
-                columns: table => new
-                {
-                    ReqId = table.Column<int>(type: "int", nullable: false),
-                    CustomerId = table.Column<int>(type: "int", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Status = table.Column<bool>(type: "bit", nullable: false),
-                    DateRequested = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    WorkerId = table.Column<int>(type: "int", nullable: true),
-                    DateAssigned = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ReadWorkersDetailsDto",
-                columns: table => new
-                {
-                    WorkerId = table.Column<int>(type: "int", nullable: false),
-                    WorkerName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    WorkerLocation = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    WorkerContact = table.Column<int>(type: "int", nullable: false),
-                    WorkerAddress = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
+                    table.PrimaryKey("PK_Notifications", x => x.NotId);
                 });
 
             migrationBuilder.CreateTable(
@@ -145,19 +73,18 @@ namespace HomeService.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UpdateRequestsDto",
+                name: "Services",
                 columns: table => new
                 {
-                    ReqId = table.Column<int>(type: "int", nullable: false),
-                    CustomerId = table.Column<int>(type: "int", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Status = table.Column<bool>(type: "bit", nullable: false),
-                    WorkerId = table.Column<int>(type: "int", nullable: true),
-                    DateAssigned = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DateRequested = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    CategoryId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CategoryType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CategoryName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_Services", x => x.CategoryId);
                 });
 
             migrationBuilder.CreateTable(
@@ -304,31 +231,16 @@ namespace HomeService.Infrastructure.Migrations
                 name: "Admins");
 
             migrationBuilder.DropTable(
-                name: "Categories");
-
-            migrationBuilder.DropTable(
-                name: "CreateRequestDto");
-
-            migrationBuilder.DropTable(
-                name: "Notification");
+                name: "Notifications");
 
             migrationBuilder.DropTable(
                 name: "Payments");
 
             migrationBuilder.DropTable(
-                name: "ReadCustomersDto");
-
-            migrationBuilder.DropTable(
-                name: "ReadRequestsDto");
-
-            migrationBuilder.DropTable(
-                name: "ReadWorkersDetailsDto");
-
-            migrationBuilder.DropTable(
                 name: "ServiceAreas");
 
             migrationBuilder.DropTable(
-                name: "UpdateRequestsDto");
+                name: "Services");
 
             migrationBuilder.DropTable(
                 name: "WorkSchedules");
